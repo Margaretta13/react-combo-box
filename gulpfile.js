@@ -1,4 +1,6 @@
 var gulp = require('gulp'),
+    styl = require('gulp-styl'),
+    inline = require('rework-inline'),
     jshint = require('gulp-jshint'),
     karma = require('gulp-karma');
 
@@ -10,6 +12,12 @@ gulp.task('lint', function() {
     return gulp.src('./src/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
+});
+
+gulp.task('styles', function () {
+    return gulp.src('src/styl/**/*.styl')
+        .pipe(styl(inline()))
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('test', function() {
