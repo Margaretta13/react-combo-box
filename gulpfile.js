@@ -2,16 +2,22 @@ var gulp = require('gulp'),
     styl = require('gulp-styl'),
     jshint = require('gulp-jshint'),
     karma = require('gulp-karma'),
-    react = require('gulp-react');
+    react = require('gulp-react'),
+    exec = require('child_process').exec,
+    path = require('path');
 
 gulp.task('default', function() {
 
 });
 
-gulp.task('lint', function() {
-    return gulp.src('./src/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+gulp.task('lint', function(cb) {
+    //as gulp-jsxhint dont exist for a while, use it directly
+    var pathToJsxhint = path.resolve("", "./node_modules/.bin/jsxhint");
+
+    exec(pathToJsxhint + ' src/jsx/**.jsx', function (err, stdout) {
+        console.log(stdout);
+        cb(err);
+    });
 });
 
 gulp.task('sources', function () {

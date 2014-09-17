@@ -12,12 +12,12 @@
   },
   "devDependencies": {
     "gulp": "~3.8.8",
-    "gulp-jshint": "latest",
     "gulp-karma": ">=0.0.4",
     "gulp-react": "~1.0.1",
     "gulp-rimraf": "latest",
     "gulp-styl": "^1.0.1",
     "gulp-watch": "latest",
+    "jsxhint": "latest",
     "karma-chrome-launcher": "~0.1.4",
     "karma-jasmine": "~0.2.0"
   }
