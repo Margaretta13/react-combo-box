@@ -1,8 +1,8 @@
 var gulp = require('gulp'),
     styl = require('gulp-styl'),
-    inline = require('rework-inline'),
     jshint = require('gulp-jshint'),
-    karma = require('gulp-karma');
+    karma = require('gulp-karma'),
+    react = require('gulp-react');
 
 gulp.task('default', function() {
 
@@ -14,10 +14,16 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
+gulp.task('sources', function () {
+    return gulp.src('src/jsx/**/*.jsx')
+        .pipe(react())
+        .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('styles', function () {
     return gulp.src('src/styl/**/*.styl')
-        .pipe(styl(inline()))
-        .pipe(gulp.dest('dist'));
+        .pipe(styl())
+        .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('test', function() {
