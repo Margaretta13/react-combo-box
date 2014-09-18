@@ -34,11 +34,20 @@ var DropDownItem = React.createClass({displayName: 'DropDownItem',
 
 var DropDownList = React.createClass({displayName: 'DropDownList',
     render: function() {
+
+        var listItems = this.props.data.map(function (item) {
+            return (
+                    DropDownItem({title: item})
+                );
+        });
+
+        var displayMode = this.props.show ? "block" : "none";
+
         return (
-            React.DOM.div({className: "react-combobox-dropdown"}, 
-                "/*", DropDownItem(null), "*/"
-            )
-        );
+                React.DOM.div({className: "react-combobox-dropdown", style: {display: displayMode}}, 
+                    listItems
+                )
+            );
     }
 });
 
