@@ -5,7 +5,8 @@ var gulp = require("gulp"),
     exec = require("child_process").exec,
     path = require("path"),
     concat = require("gulp-concat"),
-    watch = require("gulp-watch");
+    watch = require("gulp-watch"),
+    include = require("gulp-include");
 
 gulp.task("default", function() {
 
@@ -22,7 +23,8 @@ gulp.task("lint", function(cb) {
 });
 
 gulp.task("sources", function () {
-    return gulp.src("src/jsx/*.jsx")
+    return gulp.src("src/jsx/moduleWrapper.jsx")
+        .pipe(include())
         .pipe(react())
         .pipe(concat("combobox.js"))
         .pipe(gulp.dest("dist/js"));
