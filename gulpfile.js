@@ -6,20 +6,15 @@ var gulp = require("gulp"),
     path = require("path"),
     concat = require("gulp-concat"),
     watch = require("gulp-watch"),
-    include = require("gulp-include");
+    include = require("gulp-include"),
+    jshint = require("gulp-jshint");
 
-gulp.task("default", function() {
-
-});
+gulp.task("default", ['sources', 'lint', 'styles']);
 
 gulp.task("lint", function(cb) {
-    //as gulp-jsxhint dont exist for a while, use it directly
-    var pathToJsxhint = path.resolve("", "./node_modules/.bin/jsxhint");
-
-    exec(pathToJsxhint + " src/jsx/**.jsx", function (err, stdout) {
-        console.log(stdout);
-        cb(err);
-    });
+    return gulp.src("dist/js/combobox.js")
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
 
 gulp.task("sources", function () {

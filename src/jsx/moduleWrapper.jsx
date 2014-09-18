@@ -2,6 +2,8 @@
 
 //wrap component to provide possibility to use with different module systems
 (function(definition) {
+    "use strict";
+
     if (typeof exports === 'object') {
         module.exports = definition(); // CommonJS
     }
@@ -14,7 +16,7 @@
         };
     }
 })(function() {
-
+    "use strict";
 
     //= include ./dropDownItem.jsx
     //= include ./dropDownList.jsx

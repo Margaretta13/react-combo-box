@@ -19,7 +19,7 @@
     "gulp-rimraf": "latest",
     "gulp-stylus": "^1.3.3",
     "gulp-watch": "^1.0.5",
-    "jsxhint": "latest",
+    "gulp-jshint": "latest",
     "karma-chrome-launcher": "~0.1.4",
     "karma-jasmine": "~0.2.0"
   }
