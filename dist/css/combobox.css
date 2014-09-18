@@ -1,0 +1,7 @@
+div.react-combobox-dropdown .open {
+  display: block;
+}
+div.react-combobox-dropdown .closed {
+  display: none;
+}
+
