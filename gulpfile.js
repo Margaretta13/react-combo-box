@@ -1,10 +1,10 @@
 var gulp = require('gulp'),
     styl = require('gulp-styl'),
-    jshint = require('gulp-jshint'),
     karma = require('gulp-karma'),
     react = require('gulp-react'),
     exec = require('child_process').exec,
-    path = require('path');
+    path = require('path'),
+    concat = require('gulp-concat');
 
 gulp.task('default', function() {
 
@@ -21,8 +21,9 @@ gulp.task('lint', function(cb) {
 });
 
 gulp.task('sources', function () {
-    return gulp.src('src/jsx/**/*.jsx')
+    return gulp.src('src/jsx/*.jsx')
         .pipe(react())
+        .pipe(concat('combobox.js'))
         .pipe(gulp.dest('dist/js'));
 });
 
