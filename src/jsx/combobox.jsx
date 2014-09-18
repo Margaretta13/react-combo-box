@@ -1,10 +1,27 @@
 /** @jsx React.DOM */
 
 var ComboBox = React.createClass({
+    getInitialState: function() {
+        return {
+            isOpened: false
+        };
+    },
+    openDropDown: function(){
+        this.setState({
+            isOpened: true
+        });
+    },
+    closeDropDown: function(){
+        this.setState({
+            isOpened: false
+        });
+    },
     render: function() {
         return (
-            <DropDownItem data={["test", "test2"]}/>,
-            <ComboInput/>
+            <div>
+                <DropDownList data={["test", "test2"]} show={this.state.isOpened}/>
+                <input type="text" onFocus={this.openDropDown} onBlur={this.closeDropDown}/>
+            </div>
         );
     }
 });
