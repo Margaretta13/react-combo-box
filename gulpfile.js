@@ -37,10 +37,18 @@ gulp.task("styles", function () {
 
 gulp.task("watch", function () {
     watch("src/styl/**/*.styl", function (files, cb) {
-        gulp.start('styles', cb);
+        try {
+            gulp.start('styles', cb);
+        } catch(e){
+            console.warn(e);
+        }
     });
     watch("src/jsx/*.jsx", function (files, cb) {
-        gulp.start('sources', cb);
+        try {
+            gulp.start('sources', cb);
+        } catch(e){
+            console.warn(e);
+        }
     });
 });
 
