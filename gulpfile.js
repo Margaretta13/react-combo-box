@@ -2,12 +2,12 @@ var gulp = require("gulp"),
     stylus = require("gulp-stylus"),
     karma = require("gulp-karma"),
     react = require("gulp-react"),
-    exec = require("child_process").exec,
-    path = require("path"),
     concat = require("gulp-concat"),
     watch = require("gulp-watch"),
     include = require("gulp-include"),
-    jshint = require("gulp-jshint");
+    jshint = require("gulp-jshint"),
+    rename = require('gulp-rename'),
+    jsmin = require('gulp-jsmin');
 
 gulp.task("default", ['sources', 'lint', 'styles']);
 
@@ -21,8 +21,12 @@ gulp.task("sources", function () {
     return gulp.src("src/jsx/moduleWrapper.jsx")
         .pipe(include())
         .pipe(react())
-        .pipe(concat("combobox.js"))
-        .pipe(gulp.dest("dist/js"));
+        .pipe(rename("combobox.js"))
+        .pipe(gulp.dest("dist/js"))
+        //and now create compiled version
+        .pipe(jsmin())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task("styles", function () {
