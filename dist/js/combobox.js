@@ -36,10 +36,10 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
     render: function() {
 
         var listItems = this.props.data.map(function (item) {
-            return (
-                    DropDownItem({title: item})
-                );
-        });
+            return React.addons.cloneWithProps(this.props.itemBlock, {
+                title: item
+            });
+        }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
 
@@ -86,6 +86,9 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
             'reactcombobox__arrow_down': !this.state.isOpened
         });
 
+        //support custom drop down item
+        var itemBlock = this.props.children || DropDownItem(null);
+
         return (
             React.DOM.div({className: "reactcombobox"}, 
                 React.DOM.div({className: "reactcombobox__input-wrap"}, 
@@ -93,7 +96,8 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                     React.DOM.input({type: "text", className: "reactcombobox__input", ref: "textInput", 
                         onFocus: this.openDropDown, onBlur: this.closeDropDown})
                 ), 
-                DropDownList({data: this.props.options, show: this.state.isOpened})
+
+                DropDownList({data: this.props.options, show: this.state.isOpened, itemBlock: itemBlock})
             )
         );
     }

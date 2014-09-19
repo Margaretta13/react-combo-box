@@ -33,6 +33,9 @@ var ComboBox = React.createClass({
             'reactcombobox__arrow_down': !this.state.isOpened
         });
 
+        //support custom drop down item
+        var itemBlock = this.props.children || <DropDownItem/>;
+
         return (
             <div className="reactcombobox">
                 <div className="reactcombobox__input-wrap">
@@ -40,7 +43,8 @@ var ComboBox = React.createClass({
                     <input type="text" className="reactcombobox__input" ref="textInput"
                         onFocus={this.openDropDown} onBlur={this.closeDropDown}/>
                 </div>
-                <DropDownList data={this.props.options} show={this.state.isOpened}/>
+
+                <DropDownList data={this.props.options} show={this.state.isOpened} itemBlock={itemBlock}/>
             </div>
         );
     }
