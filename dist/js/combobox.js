@@ -23,7 +23,7 @@ var DropDownItem = React.createClass({displayName: 'DropDownItem',
     render: function() {
 
         return (
-            React.DOM.div({className: "react-combobox-dropdown-item"}, 
+            React.DOM.div({className: "dropdown-item"}, 
                 this.props.title
             )
         );
@@ -44,7 +44,7 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
         var displayMode = this.props.show ? "block" : "none";
 
         return (
-                React.DOM.div({className: "react-combobox-dropdown", style: {display: displayMode}}, 
+                React.DOM.div({className: "reactcombobox__dropdown", style: {display: displayMode}}, 
                     listItems
                 )
             );
@@ -71,9 +71,12 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     },
     render: function() {
         return (
-            React.DOM.div(null, 
-                DropDownList({data: ["test", "test2"], show: this.state.isOpened}), 
-                React.DOM.input({type: "text", onFocus: this.openDropDown, onBlur: this.closeDropDown})
+            React.DOM.div({className: "reactcombobox"}, 
+                React.DOM.div({class: "reactcombobox__input-wrap"}, 
+                    React.DOM.a({class: "reactcombobox__arrow reactcombobox__arrow_up"}), 
+                    React.DOM.input({type: "text", className: "reactcombobox__input", onFocus: this.openDropDown, onBlur: this.closeDropDown})
+                ), 
+                DropDownList({data: ["test", "test2"], show: this.state.isOpened})
             )
         );
     }

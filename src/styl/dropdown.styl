@@ -1,5 +1,47 @@
-div.react-combobox-dropdown
-  .open
-    display block
-  .closed
-    display none
+.combodemo
+  width 200px
+
+.reactcombobox
+  position relative
+  width 100%
+
+  &__input-wrap
+    position relative
+
+  &__input
+    width 100%
+    box-sizing border-box
+
+.reactcombobox__arrow
+  position absolute
+  top 50%
+  margin-top -12px
+  right 2px
+  cursor pointer
+
+  &_up::after
+    content "\25B2"
+
+  &_down::after
+    content "\25BC"
+
+.reactcombobox__dropdown
+  position absolute
+  border solid 1px silver
+  width 100%
+  max-height 200px
+  overflow-y scroll
+  background-color #FFFFFF
+  box-sizing border-box
+
+.dropdown-item
+  padding 5px
+  cursor pointer
+  &:hover
+    color white
+    background-color blue
+  &_active
+    background-color silver
+  
+  
+    

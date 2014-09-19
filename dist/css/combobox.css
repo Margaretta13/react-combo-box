@@ -1,7 +1,48 @@
-div.react-combobox-dropdown .open {
-  display: block;
+.combodemo {
+  width: 200px;
 }
-div.react-combobox-dropdown .closed {
-  display: none;
+.reactcombobox {
+  position: relative;
+  width: 100%;
+}
+.reactcombobox__input-wrap {
+  position: relative;
+}
+.reactcombobox__input {
+  width: 100%;
+  box-sizing: border-box;
+}
+.reactcombobox__arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  right: 2px;
+  cursor: pointer;
+}
+.reactcombobox__arrow_up::after {
+  content: "\25B2";
+}
+.reactcombobox__arrow_down::after {
+  content: "\25BC";
+}
+.reactcombobox__dropdown {
+  position: absolute;
+  border: solid 1px #c0c0c0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: scroll;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.dropdown-item {
+  padding: 5px;
+  cursor: pointer;
+}
+.dropdown-item:hover {
+  color: #fff;
+  background-color: #00f;
+}
+.dropdown-item_active {
+  background-color: #c0c0c0;
 }
 

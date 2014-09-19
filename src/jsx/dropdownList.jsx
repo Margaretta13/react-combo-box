@@ -12,7 +12,7 @@ var DropDownList = React.createClass({
         var displayMode = this.props.show ? "block" : "none";
 
         return (
-                <div className="react-combobox-dropdown" style={{display: displayMode}}>
+                <div className="reactcombobox__dropdown" style={{display: displayMode}}>
                     {listItems}
                 </div>
             );
