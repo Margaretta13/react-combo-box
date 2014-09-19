@@ -6,6 +6,15 @@ var ComboBox = React.createClass({
             isOpened: false
         };
     },
+    handleArrowClick: function(){
+        if (!this.state.isOpened){
+            this.openDropDown();
+            this.refs.textInput.getDOMNode().focus();
+            return false;
+        } else {
+            this.closeDropDown();
+        }
+    },
     openDropDown: function(){
         this.setState({
             isOpened: true
@@ -17,13 +26,18 @@ var ComboBox = React.createClass({
         });
     },
     render: function() {
+
+        var arrowClass = "reactcombobox__arrow " +
+            (this.state.isOpened ? "reactcombobox__arrow_up" : "reactcombobox__arrow_down");
+
         return (
             <div className="reactcombobox">
                 <div class="reactcombobox__input-wrap">
-                    <a class="reactcombobox__arrow reactcombobox__arrow_up"></a>
-                    <input type="text" className="reactcombobox__input" onFocus={this.openDropDown} onBlur={this.closeDropDown}/>
+                    <a className={arrowClass} onClick={this.handleArrowClick} tabindex="-1"></a>
+                    <input type="text" className="reactcombobox__input" ref="textInput"
+                        onFocus={this.openDropDown} onBlur={this.closeDropDown}/>
                 </div>
-                <DropDownList data={["test", "test2"]} show={this.state.isOpened}/>
+                <DropDownList data={this.props.options} show={this.state.isOpened}/>
             </div>
         );
     }

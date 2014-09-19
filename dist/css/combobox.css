@@ -22,6 +22,9 @@
 .reactcombobox__arrow_up::after {
   content: "\25B2";
 }
+.reactcombobox__arrow_down {
+  margin-top: -8px;
+}
 .reactcombobox__arrow_down::after {
   content: "\25BC";
 }

@@ -3,7 +3,7 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         React.renderComponent(
-            ReactComboBox.ComboBox(),
+            ReactComboBox.ComboBox({options: ["test", "test2"]}),
             document.getElementById('content')
         );
     });

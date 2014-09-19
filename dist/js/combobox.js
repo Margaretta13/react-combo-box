@@ -59,6 +59,15 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
             isOpened: false
         };
     },
+    handleArrowClick: function(){
+        if (!this.state.isOpened){
+            this.openDropDown();
+            this.refs.textInput.getDOMNode().focus();
+            return false;
+        } else {
+            this.closeDropDown();
+        }
+    },
     openDropDown: function(){
         this.setState({
             isOpened: true
@@ -70,13 +79,18 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
         });
     },
     render: function() {
+
+        var arrowClass = "reactcombobox__arrow " +
+            (this.state.isOpened ? "reactcombobox__arrow_up" : "reactcombobox__arrow_down");
+
         return (
             React.DOM.div({className: "reactcombobox"}, 
                 React.DOM.div({class: "reactcombobox__input-wrap"}, 
-                    React.DOM.a({class: "reactcombobox__arrow reactcombobox__arrow_up"}), 
-                    React.DOM.input({type: "text", className: "reactcombobox__input", onFocus: this.openDropDown, onBlur: this.closeDropDown})
+                    React.DOM.a({className: arrowClass, onClick: this.handleArrowClick, tabindex: "-1"}), 
+                    React.DOM.input({type: "text", className: "reactcombobox__input", ref: "textInput", 
+                        onFocus: this.openDropDown, onBlur: this.closeDropDown})
                 ), 
-                DropDownList({data: ["test", "test2"], show: this.state.isOpened})
+                DropDownList({data: this.props.options, show: this.state.isOpened})
             )
         );
     }
