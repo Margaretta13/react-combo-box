@@ -80,13 +80,16 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     },
     render: function() {
 
-        var arrowClass = "reactcombobox__arrow " +
-            (this.state.isOpened ? "reactcombobox__arrow_up" : "reactcombobox__arrow_down");
+        var classes = React.addons.classSet({
+            'reactcombobox__arrow': true,
+            'reactcombobox__arrow_up': this.state.isOpened,
+            'reactcombobox__arrow_down': !this.state.isOpened
+        });
 
         return (
             React.DOM.div({className: "reactcombobox"}, 
-                React.DOM.div({class: "reactcombobox__input-wrap"}, 
-                    React.DOM.a({className: arrowClass, onClick: this.handleArrowClick, tabindex: "-1"}), 
+                React.DOM.div({className: "reactcombobox__input-wrap"}, 
+                    React.DOM.a({className: classes, onClick: this.handleArrowClick, tabIndex: "-1"}), 
                     React.DOM.input({type: "text", className: "reactcombobox__input", ref: "textInput", 
                         onFocus: this.openDropDown, onBlur: this.closeDropDown})
                 ), 

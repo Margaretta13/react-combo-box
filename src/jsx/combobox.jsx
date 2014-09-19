@@ -27,13 +27,16 @@ var ComboBox = React.createClass({
     },
     render: function() {
 
-        var arrowClass = "reactcombobox__arrow " +
-            (this.state.isOpened ? "reactcombobox__arrow_up" : "reactcombobox__arrow_down");
+        var classes = React.addons.classSet({
+            'reactcombobox__arrow': true,
+            'reactcombobox__arrow_up': this.state.isOpened,
+            'reactcombobox__arrow_down': !this.state.isOpened
+        });
 
         return (
             <div className="reactcombobox">
-                <div class="reactcombobox__input-wrap">
-                    <a className={arrowClass} onClick={this.handleArrowClick} tabindex="-1"></a>
+                <div className="reactcombobox__input-wrap">
+                    <a className={classes} onClick={this.handleArrowClick} tabIndex="-1"></a>
                     <input type="text" className="reactcombobox__input" ref="textInput"
                         onFocus={this.openDropDown} onBlur={this.closeDropDown}/>
                 </div>
