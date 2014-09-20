@@ -13,6 +13,7 @@ var ComboBox = React.createClass({
             return false;
         } else {
             this.closeDropDown();
+            this.refs.textInput.getDOMNode().focusout();
         }
     },
     openDropDown: function(){

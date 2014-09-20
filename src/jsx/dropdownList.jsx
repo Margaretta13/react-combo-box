@@ -4,9 +4,10 @@ var DropDownList = React.createClass({
     render: function() {
 
         var listItems = this.props.data.map(function (item) {
-            return React.addons.cloneWithProps(this.props.itemBlock, {
-                title: item
+            var itemElement =  React.addons.cloneWithProps(this.props.itemBlock, {
+                item: item,
             });
+            return <div className="dropdown-item">{itemElement}</div>;
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
