@@ -34,11 +34,13 @@ var ComboBox = React.createClass({
             <div className="reactcombobox">
                 <div className="reactcombobox__input-wrap">
                     <a className={classes} onClick={this.handleArrowClick} tabIndex="-1"></a>
-                    <input type="text" className="reactcombobox__input" ref="textInput" value={this.props.value}
-                        onFocus={this.openDropDown} onBlur={this.closeDropDown} onChange={this.handleInputChange}/>
+                    <input type="text" className="reactcombobox__input" ref="textInput"
+                        value={this.props.value} onFocus={this.openDropDown}
+                        onBlur={this.closeDropDown} onChange={this.handleInputChange} onKeyDown={this.handleKeys}/>
                 </div>
 
-                <DropDownList items={this.state.filteredOptions ||this.props.options} show={this.state.isOpened} itemBlock={itemBlock}/>
+                <DropDownList items={this.state.filteredOptions ||this.props.options} selected={this.state.selectedItem}
+                    show={this.state.isOpened} itemBlock={itemBlock}/>
             </div>
         );
     },
@@ -63,19 +65,51 @@ var ComboBox = React.createClass({
     filterItems: function(query){
         if (this.props.source){
             this.retrieveDataFromDataSource(query);
-        } else {
-            var allOptions = this.props.options;
-            var filteredOptions = [];
+        } else if (query){
 
-            for (var i = 0, len = allOptions.length; i<len; i++){
-                var option = allOptions[i];
+            var filteredOptions = this.props.options.filter(function(item){
+                return item.indexOf(query) !== -1;
+            });
 
-                if (option.indexOf(query) !== -1){
-                    filteredOptions.push(option);
-                }
-            }
             this.setState({filteredOptions: filteredOptions});
+        } else {
+            this.setState({filteredOptions: null});
         }
+    },
+    handleKeys: function(event){
+        var options = this.state.filteredOptions || this.props.options;
+        var index = options.indexOf(this.state.selectedItem) || 0;
+
+        switch(event.keyCode){
+            case KEY_CODES.ARROW_DOWN:
+                index++;
+                if (index >= options.length){
+                    index = 0;
+                }
+                this.setState({selectedItem: options[ index ]});
+                this.setProps({value: options[ index ]});
+                return false;
+            case  KEY_CODES.ARROW_UP:
+                index--;
+                if (index < 0){
+                    index = options.length-1;
+                }
+                this.setState({selectedItem: options[ index ]});
+                this.setProps({value: options[ index ]});
+                return false;
+            case KEY_CODES.ENTER:
+                this.filterItems(this.state.selectedItem);
+                this.refs.textInput.getDOMNode().blur();
+                break;
+            case KEY_CODES.ESCAPE:
+                this.setState({selectedItem: null});
+                this.refs.textInput.getDOMNode().blur();
+                break;
+            default:
+                break;
+        }
+
+
     },
     handleArrowClick: function(){
         if (!this.state.isOpened){

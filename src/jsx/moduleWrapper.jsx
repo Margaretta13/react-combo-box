@@ -18,6 +18,7 @@
 })(function() {
     "use strict";
 
+    //= include ./keyCodesEnum.jsx
     //= include ./dropDownItem.jsx
     //= include ./dropDownList.jsx
     //= include ./combobox.jsx
