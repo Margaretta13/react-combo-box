@@ -6,8 +6,12 @@ var ComboBox = React.createClass({
         options: React.PropTypes.array,
         //or datasource function. Can return a promise. Input value and calback will pass into function
         source: React.PropTypes.func,
+        //every input change will call onChange function
+        onChange: React.PropTypes.func,
         //custom item component, also can be passed as child of ComboBox
-        cutomItem: React.PropTypes.component
+        cutomItem: React.PropTypes.component,
+        //disable or enable combobox by changing "disabled" attribute
+        disabled: React.PropTypes.bool
     },
     getInitialState: function() {
         return {
@@ -35,7 +39,7 @@ var ComboBox = React.createClass({
                 <div className="reactcombobox__input-wrap">
                     <a className={classes} onClick={this.handleArrowClick} tabIndex="-1"></a>
                     <input type="text" className="reactcombobox__input" ref="textInput"
-                        value={this.props.value} onFocus={this.openDropDown}
+                        value={this.props.value} disabled={this.props.disabled} onFocus={this.openDropDown}
                         onBlur={this.closeDropDown} onChange={this.handleInputChange} onKeyDown={this.handleKeys}/>
                 </div>
 
@@ -79,6 +83,7 @@ var ComboBox = React.createClass({
     selectItem: function(item){
         this.setState({selectedItem: item});
         this.setProps({value: item});
+        this.onChange(item);
     },
     handleKeys: function(event){
         var options = this.state.filteredOptions || this.props.options;
@@ -114,6 +119,9 @@ var ComboBox = React.createClass({
 
     },
     handleArrowClick: function(){
+        if (this.props.disabled){
+            return false;
+        }
         if (!this.state.isOpened){
             this.openDropDown();
             this.refs.textInput.getDOMNode().focus();

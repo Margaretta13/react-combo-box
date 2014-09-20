@@ -20,6 +20,9 @@
   cursor: pointer;
   font-size: 14px;
 }
+.reactcombobox__arrow:focus {
+  outline: 0;
+}
 .reactcombobox__arrow_up::after {
   content: "\25B2";
 }
