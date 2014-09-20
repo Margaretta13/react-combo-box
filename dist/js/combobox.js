@@ -103,6 +103,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
 
         var classes = React.addons.classSet({
             'reactcombobox__arrow': true,
+            'reactcombobox__arrow_disabled': this.props.disabled,
             'reactcombobox__arrow_up': this.state.isOpened,
             'reactcombobox__arrow_down': !this.state.isOpened
         });

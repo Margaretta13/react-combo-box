@@ -19,9 +19,13 @@
   right: 2px;
   cursor: pointer;
   font-size: 14px;
+  font-family: arial, sans-serif;
 }
 .reactcombobox__arrow:focus {
   outline: 0;
+}
+.reactcombobox__arrow_disabled {
+  color: #888;
 }
 .reactcombobox__arrow_up::after {
   content: "\25B2";
