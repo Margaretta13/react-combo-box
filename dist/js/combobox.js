@@ -83,32 +83,53 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
         });
 
         //support custom drop down item
-        var itemBlock = this.props.children || DropDownItem(null);
+        var itemBlock = this.props.children || this.props.cutomItem || DropDownItem(null);
 
         return (
             React.DOM.div({className: "reactcombobox"}, 
                 React.DOM.div({className: "reactcombobox__input-wrap"}, 
                     React.DOM.a({className: classes, onClick: this.handleArrowClick, tabIndex: "-1"}), 
-                    React.DOM.input({type: "text", className: "reactcombobox__input", ref: "textInput", 
-                        onFocus: this.openDropDown, onBlur: this.closeDropDown})
+                    React.DOM.input({type: "text", className: "reactcombobox__input", ref: "textInput", value: this.props.value, 
+                        onFocus: this.openDropDown, onBlur: this.closeDropDown, onChange: this.handleInputChange})
                 ), 
 
-                DropDownList({items: this.props.options || this.state.options, show: this.state.isOpened, itemBlock: itemBlock})
+                DropDownList({items: this.state.filteredOptions ||this.props.options, show: this.state.isOpened, itemBlock: itemBlock})
             )
         );
     },
     retrieveDataFromDataSource: function(inputValue){
 
         var onLoaded = function(newOptions){
-            this.setState({
+            this.setProps({
                 options: newOptions
             });
         }.bind(this);
 
         var probablyPromise = this.props.source(inputValue, onLoaded);
 
-        if (probablyPromise.then){
+        if (probablyPromise && probablyPromise.then){
             probablyPromise.then(onLoaded);
+        }
+    },
+    handleInputChange: function(event){
+        this.setProps({value: event.target.value});
+        this.filterItems(event.target.value);
+    },
+    filterItems: function(query){
+        if (this.props.source){
+            this.retrieveDataFromDataSource(query);
+        } else {
+            var allOptions = this.props.options;
+            var filteredOptions = [];
+
+            for (var i = 0, len = allOptions.length; i<len; i++){
+                var option = allOptions[i];
+
+                if (option.indexOf(query) !== -1){
+                    filteredOptions.push(option);
+                }
+            }
+            this.setState({filteredOptions: filteredOptions});
         }
     },
     handleArrowClick: function(){
@@ -118,18 +139,14 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
             return false;
         } else {
             this.closeDropDown();
-            this.refs.textInput.getDOMNode().focusout();
+            this.refs.textInput.getDOMNode().blur();
         }
     },
     openDropDown: function(){
-        this.setState({
-            isOpened: true
-        });
+        this.setState({isOpened: true});
     },
     closeDropDown: function(){
-        this.setState({
-            isOpened: false
-        });
+        this.setState({isOpened: false});
     },
 });
 
