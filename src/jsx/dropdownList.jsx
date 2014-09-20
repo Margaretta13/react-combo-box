@@ -2,8 +2,9 @@
 
 var DropDownList = React.createClass({
     render: function() {
+        this.props.items = this.props.items || [];
 
-        var listItems = this.props.data.map(function (item) {
+        var listItems = this.props.items.map(function (item) {
             var itemElement =  React.addons.cloneWithProps(this.props.itemBlock, {
                 item: item,
             });
