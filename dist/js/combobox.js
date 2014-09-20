@@ -42,6 +42,9 @@ var DropDownItem = React.createClass({displayName: 'DropDownItem',
 /** @jsx React.DOM */
 
 var DropDownList = React.createClass({displayName: 'DropDownList',
+    onItemSelected : function(item){
+        this.props.onSelect(item);
+    },
     render: function() {
         this.props.items = this.props.items || [];
 
@@ -56,7 +59,9 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
                 'dropdown-item_active': item === this.props.selected
             });
 
-            return React.DOM.div({className: classes}, itemElement);
+            var bindedClick = this.onItemSelected.bind(this, item);
+
+            return React.DOM.div({className: classes, key: item, onMouseDown: bindedClick}, itemElement);
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
@@ -111,7 +116,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                 ), 
 
                 DropDownList({items: this.state.filteredOptions ||this.props.options, selected: this.state.selectedItem, 
-                    show: this.state.isOpened, itemBlock: itemBlock})
+                    show: this.state.isOpened, itemBlock: itemBlock, onSelect: this.selectItem})
             )
         );
     },
@@ -147,6 +152,10 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
             this.setState({filteredOptions: null});
         }
     },
+    selectItem: function(item){
+        this.setState({selectedItem: item});
+        this.setProps({value: item});
+    },
     handleKeys: function(event){
         var options = this.state.filteredOptions || this.props.options;
         var index = options.indexOf(this.state.selectedItem) || 0;
@@ -157,16 +166,14 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                 if (index >= options.length){
                     index = 0;
                 }
-                this.setState({selectedItem: options[ index ]});
-                this.setProps({value: options[ index ]});
+                this.selectItem(options[index]);
                 return false;
             case  KEY_CODES.ARROW_UP:
                 index--;
                 if (index < 0){
                     index = options.length-1;
                 }
-                this.setState({selectedItem: options[ index ]});
-                this.setProps({value: options[ index ]});
+                this.selectItem(options[index]);
                 return false;
             case KEY_CODES.ENTER:
                 this.filterItems(this.state.selectedItem);

@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 
 var DropDownList = React.createClass({
+    onItemSelected : function(item){
+        this.props.onSelect(item);
+    },
     render: function() {
         this.props.items = this.props.items || [];
 
@@ -15,7 +18,9 @@ var DropDownList = React.createClass({
                 'dropdown-item_active': item === this.props.selected
             });
 
-            return <div className={classes}>{itemElement}</div>;
+            var bindedClick = this.onItemSelected.bind(this, item);
+
+            return <div className={classes} key={item} onMouseDown={bindedClick}>{itemElement}</div>;
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";

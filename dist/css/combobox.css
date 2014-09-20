@@ -18,6 +18,7 @@
   margin-top: -12px;
   right: 2px;
   cursor: pointer;
+  font-size: 14px;
 }
 .reactcombobox__arrow_up::after {
   content: "\25B2";
@@ -49,4 +50,3 @@
 .dropdown-item_active {
   background-color: #c0c0c0;
 }
-

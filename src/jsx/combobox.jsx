@@ -40,7 +40,7 @@ var ComboBox = React.createClass({
                 </div>
 
                 <DropDownList items={this.state.filteredOptions ||this.props.options} selected={this.state.selectedItem}
-                    show={this.state.isOpened} itemBlock={itemBlock}/>
+                    show={this.state.isOpened} itemBlock={itemBlock} onSelect={this.selectItem}/>
             </div>
         );
     },
@@ -76,6 +76,10 @@ var ComboBox = React.createClass({
             this.setState({filteredOptions: null});
         }
     },
+    selectItem: function(item){
+        this.setState({selectedItem: item});
+        this.setProps({value: item});
+    },
     handleKeys: function(event){
         var options = this.state.filteredOptions || this.props.options;
         var index = options.indexOf(this.state.selectedItem) || 0;
@@ -86,16 +90,14 @@ var ComboBox = React.createClass({
                 if (index >= options.length){
                     index = 0;
                 }
-                this.setState({selectedItem: options[ index ]});
-                this.setProps({value: options[ index ]});
+                this.selectItem(options[index]);
                 return false;
             case  KEY_CODES.ARROW_UP:
                 index--;
                 if (index < 0){
                     index = options.length-1;
                 }
-                this.setState({selectedItem: options[ index ]});
-                this.setProps({value: options[ index ]});
+                this.selectItem(options[index]);
                 return false;
             case KEY_CODES.ENTER:
                 this.filterItems(this.state.selectedItem);
