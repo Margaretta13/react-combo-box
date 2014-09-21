@@ -44,6 +44,7 @@ var EventHandlersMixin = {
             return false;
         }
         if (!this.state.isOpened){
+            this.openDropDown();
             this.refs.textInput.getDOMNode().focus();
         } else {
             this.closeDropdownAndBringFocusBack();
@@ -235,7 +236,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
         return (
             React.DOM.div({className: "reactcombobox"}, 
                 React.DOM.div({className: "reactcombobox__input-wrap"}, 
-                    React.DOM.a({className: classes, onClick: this.handleArrowClick, tabIndex: "-1"}), 
+                    React.DOM.a({className: classes, onMouseDown: this.handleArrowClick, tabIndex: "-1"}), 
 
                     React.DOM.input({type: "text", autocomplete: "off", className: "reactcombobox__input", ref: "textInput", 
                         value: this.props.value, 

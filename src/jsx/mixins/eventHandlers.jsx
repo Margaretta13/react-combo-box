@@ -16,6 +16,7 @@ var EventHandlersMixin = {
             return false;
         }
         if (!this.state.isOpened){
+            this.openDropDown();
             this.refs.textInput.getDOMNode().focus();
         } else {
             this.closeDropdownAndBringFocusBack();
