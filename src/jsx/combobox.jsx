@@ -50,7 +50,7 @@ var ComboBox = React.createClass({
                 <div className="reactcombobox__input-wrap">
                     <a className={classes} onClick={this.handleArrowClick} tabIndex="-1"></a>
 
-                    <input type="text" className="reactcombobox__input" ref="textInput"
+                    <input type="text" autocomplete="off" className="reactcombobox__input" ref="textInput"
                         value={this.props.value}
                         disabled={this.props.disabled}
                         onFocus={this.openDropDown}
@@ -80,11 +80,21 @@ var ComboBox = React.createClass({
     selectItemAndFilter: function(item){
         this.filterItems(this.getValueOfItem(item, this.props.titleField));
         this.selectItem(item);
+        this.closeDropdownAndBringFocusBack();
     },
     openDropDown: function(){
         this.setState({isOpened: true});
     },
     closeDropDown: function(){
         this.setState({isOpened: false});
+    },
+    closeDropdownAndBringFocusBack: function(){
+        var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;
+
+        supportedIntervalMethod.call(window, function(){
+            this.refs.textInput.getDOMNode().focus();
+            this.closeDropDown();
+        }.bind(this));
+
     }
 });
