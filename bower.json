@@ -1,0 +1,26 @@
+{
+    "name": "react-combo-box",
+    "version": "0.0.1",
+    "homepage": "https://github.com/huston007/react-combo-box",
+    "author": {
+        "name": "Andrey Skladchikov",
+        "email": "andrey.skladchikov@gmail.com"
+    },
+    "description": "ReactJS combobox implementation",
+    "main": "dist/js/combobox.js",
+    "moduleType": [
+        "amd",
+        "globals",
+        "node"
+    ],
+    "keywords": [
+        "ReactJS",
+        "Combobox"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "node_modules",
+        "bower_components",
+        "test"
+    ]
+}
