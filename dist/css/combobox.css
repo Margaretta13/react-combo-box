@@ -15,7 +15,7 @@
 .reactcombobox__arrow {
   position: absolute;
   top: 50%;
-  margin-top: -12px;
+  margin-top: -8px;
   right: 2px;
   cursor: pointer;
   font-size: 14px;
@@ -29,9 +29,6 @@
 }
 .reactcombobox__arrow_up::after {
   content: "\25B2";
-}
-.reactcombobox__arrow_down {
-  margin-top: -8px;
 }
 .reactcombobox__arrow_down::after {
   content: "\25BC";
