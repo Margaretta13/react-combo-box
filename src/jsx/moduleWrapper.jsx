@@ -19,6 +19,7 @@
     "use strict";
 
     //= include ./keyCodesEnum.jsx
+    //= include ./mixins/eventHandlers.jsx
     //= include ./dropDownItem.jsx
     //= include ./dropDownList.jsx
     //= include ./combobox.jsx
