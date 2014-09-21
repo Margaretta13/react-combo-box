@@ -1,16 +1,12 @@
 /** @jsx React.DOM */
 
 var DropDownItem = React.createClass({
+    mixins: [ItemParserMixin],
     render: function() {
-
-        var titleField = this.props.titleField,
-            item = this.props.item;
-
-        var title = titleField ? item[titleField] : item;
 
         return (
             <div>
-                {title}
+                {this.getValueOfItem(this.props.item, this.props.titleField)}
             </div>
         );
     }

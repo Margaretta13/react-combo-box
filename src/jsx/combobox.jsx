@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var ComboBox = React.createClass({
-    mixins: [EventHandlersMixin, OptionsHelperMixin],
+    mixins: [EventHandlersMixin, OptionsHelperMixin, ItemParserMixin],
     propTypes: {
         //array of predefined options
         options: React.PropTypes.array,
@@ -32,9 +32,6 @@ var ComboBox = React.createClass({
         } else {
             this.filterItems(this.props.value);
         }
-    },
-    componentWillReceiveProps: function(newProps){
-        this.filterItems(newProps.value);
     },
     render: function() {
 
@@ -67,19 +64,22 @@ var ComboBox = React.createClass({
                     selected={this.state.selectedItem}
                     show={this.state.isOpened}
                     itemBlock={itemBlock}
-                    onSelect={this.selectItem}/>
+                    onSelect={this.selectItemAndFilter}/>
             </div>
         );
     },
     selectItem: function(item){
         this.setState({selectedItem: item});
 
-        var value = this.props.titleField ? item[this.props.titleField] : item;
+        this.setProps({value: this.getValueOfItem(item, this.props.titleField)});
 
-        this.setProps({value: value});
         if (this.onChange){
             this.onChange(item, value);
         }
+    },
+    selectItemAndFilter: function(item){
+        this.filterItems(this.getValueOfItem(item, this.props.titleField));
+        this.selectItem(item);
     },
     openDropDown: function(){
         this.setState({isOpened: true});

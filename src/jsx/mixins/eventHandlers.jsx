@@ -44,7 +44,7 @@ var EventHandlersMixin = {
                 this.selectItem(options[index]);
                 return false;
             case this.keyCodes.ENTER:
-                this.filterItems(this.state.selectedItem);
+                this.filterItems(this.refs.textInput.getDOMNode().value);
                 this.refs.textInput.getDOMNode().blur();
                 break;
             case this.keyCodes.ESCAPE:

@@ -18,6 +18,7 @@
 })(function() {
     "use strict";
 
+    //= include ./mixins/itemParser.jsx
     //= include ./mixins/eventHandlers.jsx
     //= include ./mixins/optionsHelper.jsx
     //= include ./dropDownItem.jsx

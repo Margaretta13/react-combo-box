@@ -19,6 +19,15 @@
     "use strict";
 /** @jsx React.DOM */
 
+var ItemParserMixin = {
+    getValueOfItem: function(item, titleField){
+        var value = titleField ? item[titleField] : item;
+        return value;
+    }
+};
+
+/** @jsx React.DOM */
+
 var EventHandlersMixin = {
     keyCodes: {
         ESCAPE: 27,
@@ -63,7 +72,7 @@ var EventHandlersMixin = {
                 this.selectItem(options[index]);
                 return false;
             case this.keyCodes.ENTER:
-                this.filterItems(this.state.selectedItem);
+                this.filterItems(this.refs.textInput.getDOMNode().value);
                 this.refs.textInput.getDOMNode().blur();
                 break;
             case this.keyCodes.ESCAPE:
@@ -113,16 +122,12 @@ var OptionsHelperMixin = {
 /** @jsx React.DOM */
 
 var DropDownItem = React.createClass({displayName: 'DropDownItem',
+    mixins: [ItemParserMixin],
     render: function() {
-
-        var titleField = this.props.titleField,
-            item = this.props.item;
-
-        var title = titleField ? item[titleField] : item;
 
         return (
             React.DOM.div(null, 
-                title
+                this.getValueOfItem(this.props.item, this.props.titleField)
             )
         );
     }
@@ -178,7 +183,7 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
 /** @jsx React.DOM */
 
 var ComboBox = React.createClass({displayName: 'ComboBox',
-    mixins: [EventHandlersMixin, OptionsHelperMixin],
+    mixins: [EventHandlersMixin, OptionsHelperMixin, ItemParserMixin],
     propTypes: {
         //array of predefined options
         options: React.PropTypes.array,
@@ -209,9 +214,6 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
         } else {
             this.filterItems(this.props.value);
         }
-    },
-    componentWillReceiveProps: function(newProps){
-        this.filterItems(newProps.value);
     },
     render: function() {
 
@@ -244,17 +246,22 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                     selected: this.state.selectedItem, 
                     show: this.state.isOpened, 
                     itemBlock: itemBlock, 
-                    onSelect: this.selectItem})
+                    onSelect: this.selectItemAndFilter})
             )
         );
     },
     selectItem: function(item){
         this.setState({selectedItem: item});
 
-        var value = this.props.titleField ? item[this.props.titleField] : item;
+        this.setProps({value: this.getValueOfItem(item, this.props.titleField)});
 
-        this.setProps({value: value});
-        this.onChange(item, value);
+        if (this.onChange){
+            this.onChange(item, value);
+        }
+    },
+    selectItemAndFilter: function(item){
+        this.filterItems(this.getValueOfItem(item, this.props.titleField));
+        this.selectItem(item);
     },
     openDropDown: function(){
         this.setState({isOpened: true});
