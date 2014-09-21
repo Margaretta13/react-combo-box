@@ -21,10 +21,20 @@ var ComboBox = React.createClass({
             isOpened: false
         };
     },
+    getDefaultProps: function() {
+        return {
+            options: []
+        };
+    },
     componentDidMount: function(){
-        if (!this.props.options){
+        if (this.props.source){
             this.retrieveDataFromDataSource();
+        } else {
+            this.filterItems(this.props.value);
         }
+    },
+    componentWillReceiveProps: function(newProps){
+        this.filterItems(newProps.value);
     },
     render: function() {
 

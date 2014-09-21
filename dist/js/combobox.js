@@ -134,6 +134,13 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
     onItemSelected : function(item){
         this.props.onSelect(item);
     },
+    generateItemKey: function(item){
+        if (typeof item === "string"){
+            return item;
+        }
+        //use jsonned object as unique hash key of object
+        return JSON.stringify(item);
+    },
     render: function() {
         this.props.items = this.props.items || [];
 
@@ -151,7 +158,11 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
 
             var bindedClick = this.onItemSelected.bind(this, item);
 
-            return React.DOM.div({className: classes, key: JSON.stringify(item), onMouseDown: bindedClick}, itemElement);
+            return (React.DOM.div({className: classes, key: this.generateItemKey(item), onMouseDown: bindedClick}, 
+                        itemElement
+                    )
+            );
+
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
@@ -187,10 +198,20 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
             isOpened: false
         };
     },
+    getDefaultProps: function() {
+        return {
+            options: []
+        };
+    },
     componentDidMount: function(){
-        if (!this.props.options){
+        if (this.props.source){
             this.retrieveDataFromDataSource();
+        } else {
+            this.filterItems(this.props.value);
         }
+    },
+    componentWillReceiveProps: function(newProps){
+        this.filterItems(newProps.value);
     },
     render: function() {
 

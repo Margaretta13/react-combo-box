@@ -4,6 +4,13 @@ var DropDownList = React.createClass({
     onItemSelected : function(item){
         this.props.onSelect(item);
     },
+    generateItemKey: function(item){
+        if (typeof item === "string"){
+            return item;
+        }
+        //use jsonned object as unique hash key of object
+        return JSON.stringify(item);
+    },
     render: function() {
         this.props.items = this.props.items || [];
 
@@ -21,7 +28,11 @@ var DropDownList = React.createClass({
 
             var bindedClick = this.onItemSelected.bind(this, item);
 
-            return <div className={classes} key={JSON.stringify(item)} onMouseDown={bindedClick}>{itemElement}</div>;
+            return (<div className={classes} key={this.generateItemKey(item)} onMouseDown={bindedClick}>
+                        {itemElement}
+                    </div>
+            );
+
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
