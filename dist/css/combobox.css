@@ -35,7 +35,7 @@
 }
 .reactcombobox__dropdown {
   position: absolute;
-  border: solid 1px #c0c0c0;
+  border: solid 1px #e5e5e5;
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
@@ -49,8 +49,8 @@
 }
 .dropdown-item:hover {
   color: #fff;
-  background-color: #00f;
+  background-color: #428bca;
 }
 .dropdown-item_active {
-  background-color: #c0c0c0;
+  background-color: #e5e5e5;
 }
