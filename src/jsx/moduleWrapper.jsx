@@ -18,7 +18,6 @@
 })(function() {
     "use strict";
 
-    //= include ./keyCodesEnum.jsx
     //= include ./mixins/eventHandlers.jsx
     //= include ./mixins/optionsHelper.jsx
     //= include ./dropDownItem.jsx
