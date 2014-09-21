@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var ComboBox = React.createClass({
-    mixins: [EventHandlersMixin],
+    mixins: [EventHandlersMixin, OptionsHelperMixin],
     propTypes: {
         //array of predefined options
         options: React.PropTypes.array,
@@ -50,34 +50,6 @@ var ComboBox = React.createClass({
             </div>
         );
     },
-    retrieveDataFromDataSource: function(inputValue){
-
-        var onLoaded = function(newOptions){
-            this.setProps({
-                options: newOptions
-            });
-        }.bind(this);
-
-        var probablyPromise = this.props.source(inputValue, onLoaded);
-
-        if (probablyPromise && probablyPromise.then){
-            probablyPromise.then(onLoaded);
-        }
-    },
-    filterItems: function(query){
-        if (this.props.source){
-            this.retrieveDataFromDataSource(query);
-        } else if (query){
-
-            var filteredOptions = this.props.options.filter(function(item){
-                return item.indexOf(query) !== -1;
-            });
-
-            this.setState({filteredOptions: filteredOptions});
-        } else {
-            this.setState({filteredOptions: null});
-        }
-    },
     selectItem: function(item){
         this.setState({selectedItem: item});
         this.setProps({value: item});
@@ -88,5 +60,5 @@ var ComboBox = React.createClass({
     },
     closeDropDown: function(){
         this.setState({isOpened: false});
-    },
+    }
 });

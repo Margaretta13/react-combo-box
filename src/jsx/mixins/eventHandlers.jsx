@@ -48,5 +48,5 @@ var EventHandlersMixin = {
             default:
                 break;
         }
-    },
+    }
 };
