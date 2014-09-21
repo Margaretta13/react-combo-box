@@ -8,8 +8,13 @@ var EventHandlersMixin = {
         ENTER: 13
     },
     handleInputChange: function(event){
-        this.setProps({value: event.target.value});
-        this.filterItems(event.target.value);
+        var value = event.target.value;
+
+        this.setProps({value: value});
+        this.filterItems(value);
+        if (this.onChange){
+            this.onChange(value);
+        }
     },
     handleArrowClick: function(){
         if (this.props.disabled){

@@ -9,11 +9,13 @@ var ComboBox = React.createClass({
         source: React.PropTypes.func,
         //if options is array of objects, this param describe what field of object should combobox display into dropdown list
         titleField: React.PropTypes.string,
-        //item and input value will be passed into onChange function
+        //onChange triggering after every input change. Input value and selected item (if selected) will be passed into onChange function
         onChange: React.PropTypes.func,
+        //selecting item from provided optons will trigger onItemSelected(item)
+        onItemSelected: React.PropTypes.func,
         //custom item component, also can be passed as child of ComboBox
         cutomItem: React.PropTypes.component,
-        //disable or enable combobox by changing "disabled" attribute
+        //disable or enable combobox by changing "disabled" property
         disabled: React.PropTypes.bool
     },
     getInitialState: function() {
@@ -71,10 +73,15 @@ var ComboBox = React.createClass({
     selectItem: function(item){
         this.setState({selectedItem: item});
 
-        this.setProps({value: this.getValueOfItem(item, this.props.titleField)});
+        var value = this.getValueOfItem(item, this.props.titleField);
+
+        this.setProps({value: value});
 
         if (this.onChange){
-            this.onChange(item, value);
+            this.onChange(value, item);
+        }
+        if (this.onItemSelected){
+            this.onItemSelected(item);
         }
     },
     selectItemAndFilter: function(item){
