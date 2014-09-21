@@ -77,7 +77,9 @@ var ComboBox = React.createClass({
         var value = this.props.titleField ? item[this.props.titleField] : item;
 
         this.setProps({value: value});
-        this.onChange(item, value);
+        if (this.onChange){
+            this.onChange(item, value);
+        }
     },
     openDropDown: function(){
         this.setState({isOpened: true});
