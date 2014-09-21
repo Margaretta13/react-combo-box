@@ -21,8 +21,9 @@ var OptionsHelperMixin = {
         } else if (query){
 
             var filteredOptions = this.props.options.filter(function(item){
-                return item.indexOf(query) !== -1;
-            });
+                var value = this.props.titleField ? item[this.props.titleField] : item;
+                return value.indexOf(query) !== -1;
+            }.bind(this));
 
             this.setState({filteredOptions: filteredOptions});
         } else {

@@ -3,9 +3,14 @@
 var DropDownItem = React.createClass({
     render: function() {
 
+        var titleField = this.props.titleField,
+            item = this.props.item;
+
+        var title = titleField ? item[titleField] : item;
+
         return (
             <div>
-                {this.props.item}
+                {title}
             </div>
         );
     }

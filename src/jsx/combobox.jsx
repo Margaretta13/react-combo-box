@@ -5,9 +5,11 @@ var ComboBox = React.createClass({
     propTypes: {
         //array of predefined options
         options: React.PropTypes.array,
-        //or datasource function. Can return a promise. Input value and calback will pass into function
+        //or datasource function. Can return a promise. Input value and callback will be passed into source function
         source: React.PropTypes.func,
-        //every input change will call onChange function
+        //if options is array of objects, this param describe what field of object should combobox display into dropdown list
+        titleField: React.PropTypes.string,
+        //item and input value will be passed into onChange function
         onChange: React.PropTypes.func,
         //custom item component, also can be passed as child of ComboBox
         cutomItem: React.PropTypes.component,
@@ -40,20 +42,32 @@ var ComboBox = React.createClass({
             <div className="reactcombobox">
                 <div className="reactcombobox__input-wrap">
                     <a className={classes} onClick={this.handleArrowClick} tabIndex="-1"></a>
+
                     <input type="text" className="reactcombobox__input" ref="textInput"
-                        value={this.props.value} disabled={this.props.disabled} onFocus={this.openDropDown}
-                        onBlur={this.closeDropDown} onChange={this.handleInputChange} onKeyDown={this.handleKeys}/>
+                        value={this.props.value}
+                        disabled={this.props.disabled}
+                        onFocus={this.openDropDown}
+                        onBlur={this.closeDropDown}
+                        onChange={this.handleInputChange}
+                        onKeyDown={this.handleKeys}/>
                 </div>
 
-                <DropDownList items={this.state.filteredOptions ||this.props.options} selected={this.state.selectedItem}
-                    show={this.state.isOpened} itemBlock={itemBlock} onSelect={this.selectItem}/>
+                <DropDownList items={this.state.filteredOptions ||this.props.options}
+                    titleField={this.props.titleField}
+                    selected={this.state.selectedItem}
+                    show={this.state.isOpened}
+                    itemBlock={itemBlock}
+                    onSelect={this.selectItem}/>
             </div>
         );
     },
     selectItem: function(item){
         this.setState({selectedItem: item});
-        this.setProps({value: item});
-        this.onChange(item);
+
+        var value = this.props.titleField ? item[this.props.titleField] : item;
+
+        this.setProps({value: value});
+        this.onChange(item, value);
     },
     openDropDown: function(){
         this.setState({isOpened: true});

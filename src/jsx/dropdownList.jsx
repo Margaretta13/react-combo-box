@@ -10,7 +10,8 @@ var DropDownList = React.createClass({
         var listItems = this.props.items.map(function (item) {
 
             var itemElement =  React.addons.cloneWithProps(this.props.itemBlock, {
-                item: item
+                item: item,
+                titleField: this.props.titleField
             });
 
             var classes = React.addons.classSet({
@@ -20,7 +21,7 @@ var DropDownList = React.createClass({
 
             var bindedClick = this.onItemSelected.bind(this, item);
 
-            return <div className={classes} key={item} onMouseDown={bindedClick}>{itemElement}</div>;
+            return <div className={classes} key={JSON.stringify(item)} onMouseDown={bindedClick}>{itemElement}</div>;
         }.bind(this));
 
         var displayMode = this.props.show ? "block" : "none";
