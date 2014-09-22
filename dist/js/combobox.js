@@ -54,6 +54,10 @@ var EventHandlersMixin = {
         var options = this.getActualOptions();
         var index = options.indexOf(this.state.selectedItem) || 0;
 
+        if (event.shiftKey){
+            return;
+        }
+
         this.openDropDownIfClosed();
 
         switch(event.keyCode){
@@ -277,11 +281,11 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
 
         this.setState({value: value});
 
-        if (this.onChange){
-            this.onChange(value, item);
+        if (this.props.onChange){
+            this.props.onChange(value, item);
         }
-        if (this.onItemSelected){
-            this.onItemSelected(item);
+        if (this.props.onItemSelected){
+            this.props.onItemSelected(item);
         }
     },
     selectItemAndFilter: function(item){

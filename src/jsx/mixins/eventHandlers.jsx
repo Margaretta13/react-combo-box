@@ -37,6 +37,10 @@ var EventHandlersMixin = {
         var options = this.getActualOptions();
         var index = options.indexOf(this.state.selectedItem) || 0;
 
+        if (event.shiftKey){
+            return;
+        }
+
         this.openDropDownIfClosed();
 
         switch(event.keyCode){
