@@ -31,6 +31,9 @@
 .reactcombobox__arrow_disabled {
   color: #888;
 }
+.reactcombobox__arrow_disabled:hover {
+  color: #888;
+}
 .reactcombobox__arrow_up::after {
   content: "\25B2";
 }
