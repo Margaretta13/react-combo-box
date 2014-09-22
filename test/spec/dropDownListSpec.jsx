@@ -41,4 +41,19 @@ describe("dropDownList tests", function() {
 
         expect(activeNode.innerHTML.indexOf(fakeItems[1]) !== -1).toBeTruthy();
     });
+
+    it("Should call onItemSelected on clicking by item", function () {
+        var spyOnSelect = jasmine.createSpy('fakeOnSelect');
+
+        var dropDownListInstance = testUtils.renderIntoDocument(
+            <DropDownList items={fakeItems} itemBlock={DropDownItem(null)} onSelect={spyOnSelect}/>
+        );
+
+        var domNode = dropDownListInstance.getDOMNode();
+        var firstItemNode = domNode.querySelector(".dropdown-item");
+
+        testUtils.Simulate.mouseDown(firstItemNode);
+
+        expect(spyOnSelect).toHaveBeenCalledWith(fakeItems[0]);
+    });
 });

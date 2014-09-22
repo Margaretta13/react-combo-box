@@ -81,11 +81,11 @@ var ComboBox = React.createClass({
 
         this.setState({value: value});
 
-        if (this.onChange){
-            this.onChange(value, item);
+        if (this.props.onChange){
+            this.props.onChange(value, item);
         }
-        if (this.onItemSelected){
-            this.onItemSelected(item);
+        if (this.props.onItemSelected){
+            this.props.onItemSelected(item);
         }
     },
     selectItemAndFilter: function(item){
