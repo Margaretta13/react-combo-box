@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 
 var OptionsHelperMixin = {
+    getActualOptions: function(){
+        return this.state.filteredOptions || this.state.options || this.props.options;
+    },
     retrieveDataFromDataSource: function(inputValue){
 
         var onLoaded = function(newOptions){
@@ -20,7 +23,7 @@ var OptionsHelperMixin = {
             this.retrieveDataFromDataSource(query);
         } else if (query){
 
-            var filteredOptions = this.state.options.filter(function(item){
+            var filteredOptions = this.getActualOptions().filter(function(item){
                 var value = this.props.titleField ? item[this.props.titleField] : item;
                 return value.indexOf(query) !== -1;
             }.bind(this));

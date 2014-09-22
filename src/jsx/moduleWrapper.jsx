@@ -11,9 +11,7 @@
         define([], definition); // AMD
     }
     else {
-        window.ReactComboBox = {    // Browser
-            ComboBox : definition()
-        };
+        window.ReactComboBox = definition();  // Browser
     }
 })(function() {
     "use strict";

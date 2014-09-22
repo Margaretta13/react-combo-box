@@ -11,9 +11,7 @@
         define([], definition); // AMD
     }
     else {
-        window.ReactComboBox = {    // Browser
-            ComboBox : definition()
-        };
+        window.ReactComboBox = definition();  // Browser
     }
 })(function() {
     "use strict";
@@ -62,7 +60,7 @@ var EventHandlersMixin = {
         }
     },
     handleKeys: function(event){
-        var options = this.state.filteredOptions || this.state.options;
+        var options = this.getActualOptions();
         var index = options.indexOf(this.state.selectedItem) || 0;
 
         this.openDropDownIfClosed();
@@ -99,6 +97,9 @@ var EventHandlersMixin = {
 /** @jsx React.DOM */
 
 var OptionsHelperMixin = {
+    getActualOptions: function(){
+        return this.state.filteredOptions || this.state.options || this.props.options;
+    },
     retrieveDataFromDataSource: function(inputValue){
 
         var onLoaded = function(newOptions){
@@ -118,7 +119,7 @@ var OptionsHelperMixin = {
             this.retrieveDataFromDataSource(query);
         } else if (query){
 
-            var filteredOptions = this.state.options.filter(function(item){
+            var filteredOptions = this.getActualOptions().filter(function(item){
                 var value = this.props.titleField ? item[this.props.titleField] : item;
                 return value.indexOf(query) !== -1;
             }.bind(this));
@@ -202,6 +203,8 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     propTypes: {
         //array of predefined options
         options: React.PropTypes.array,
+        //an default value for input. To change value after mounting component, please use setValue method
+        defaultValue: React.PropTypes.string,
         //or datasource function. Can return a promise. Input value and callback will be passed into source function
         source: React.PropTypes.func,
         //if options is array of objects, this param describe what field of object should combobox display into dropdown list
@@ -218,26 +221,21 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     getInitialState: function() {
         return {
             isOpened: false,
-            options: [],
-            value: this.props.value
+            value: this.props.defaultValue
         };
     },
     getDefaultProps: function() {
         return {
+            defaultValue: "",
             options: []
         };
     },
     componentDidMount: function(){
-        this.updateStateIfPropsChanged(this.props);  
-
         if (this.props.source){
             this.retrieveDataFromDataSource();
         } else {
             this.filterItems(this.props.value);
         }
-    },
-    componentWillReceiveProps: function(newProps){
-        this.updateStateIfPropsChanged(newProps);        
     },
     render: function() {
 
@@ -265,7 +263,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                         onKeyDown: this.handleKeys})
                 ), 
 
-                DropDownList({items: this.state.filteredOptions ||this.state.options, 
+                DropDownList({items: this.getActualOptions(), 
                     titleField: this.props.titleField, 
                     selected: this.state.selectedItem, 
                     show: this.state.isOpened, 
@@ -299,17 +297,9 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     closeDropDown: function(){
         this.setState({isOpened: false});
     },
-    updateStateIfPropsChanged: function(newProps){
-        var propsForState = {};
-        if (newProps.value){
-            propsForState.value = newProps.value;
-        }
-        if (newProps.options){
-            propsForState.options = newProps.options;
-        }
-        if (newProps.value || newProps.options){
-            this.setState(newProps);
-        }
+    setValue: function(newValue){
+        this.setState({value: newValue});
+        this.filterItems(newValue);
     },
     closeDropdownAndBringFocusBack: function(){
         var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;

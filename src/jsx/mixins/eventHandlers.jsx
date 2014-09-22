@@ -34,7 +34,7 @@ var EventHandlersMixin = {
         }
     },
     handleKeys: function(event){
-        var options = this.state.filteredOptions || this.state.options;
+        var options = this.getActualOptions();
         var index = options.indexOf(this.state.selectedItem) || 0;
 
         this.openDropDownIfClosed();

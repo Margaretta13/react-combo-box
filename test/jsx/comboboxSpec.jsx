@@ -5,7 +5,7 @@ describe("combobox tests", function(){
 		var testValue = "testValue";
 
 		var comboboxInstance = testUtils.renderIntoDocument(
-            ComboBox({options: [], value: testValue})
+            ComboBox({options: [], defaultValue: testValue})
         );
 
         var inputValue = comboboxInstance.refs.textInput.getDOMNode().value;
