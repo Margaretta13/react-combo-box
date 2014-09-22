@@ -18,7 +18,9 @@ var ComboBox = React.createClass({
         //custom item component, also can be passed as child of ComboBox
         cutomItem: React.PropTypes.component,
         //disable or enable combobox by changing "disabled" property
-        disabled: React.PropTypes.bool
+        disabled: React.PropTypes.bool,
+        //to customize input style customInputClass can be provided, bootstrap "form-control" class for example
+        customInputClass: React.PropTypes.string
     },
     getInitialState: function() {
         return {
@@ -40,23 +42,15 @@ var ComboBox = React.createClass({
         }
     },
     render: function() {
-
-        var classes = React.addons.classSet({
-            'reactcombobox__arrow': true,
-            'reactcombobox__arrow_disabled': this.props.disabled,
-            'reactcombobox__arrow_up': this.state.isOpened,
-            'reactcombobox__arrow_down': !this.state.isOpened
-        });
-
         //support custom drop down item
         var itemBlock = this.props.children || this.props.cutomItem || <DropDownItem/>;
 
         return (
             <div className="reactcombobox">
                 <div className="reactcombobox__input-wrap">
-                    <a className={classes} onMouseDown={this.handleArrowClick} tabIndex="-1"></a>
+                    <a className={this.getArrowClasses()} onMouseDown={this.handleArrowClick} tabIndex="-1"></a>
 
-                    <input type="text" autoComplete="off" className="reactcombobox__input" ref="textInput"
+                    <input type="text" autoComplete="off" className={this.getInputClasses()} ref="textInput"
                         value={this.state.value}
                         disabled={this.props.disabled}
                         onFocus={this.openDropDown}
@@ -73,6 +67,24 @@ var ComboBox = React.createClass({
                     onSelect={this.selectItemAndFilter}/>
             </div>
         );
+    },
+    getArrowClasses: function(){
+        var classesHash = {
+            'reactcombobox__arrow': true,
+            'reactcombobox__arrow_disabled': this.props.disabled,
+            'reactcombobox__arrow_up': this.state.isOpened,
+            'reactcombobox__arrow_down': !this.state.isOpened
+        };
+        return React.addons.classSet(classesHash);
+    },
+    getInputClasses: function(){
+        var classesHash = {
+            'reactcombobox__input': true
+        };
+        if (this.props.customInputClass){
+            classesHash[this.props.customInputClass] = true;
+        }
+        return React.addons.classSet(classesHash);
     },
     selectItem: function(item){
         this.setState({selectedItem: item});
