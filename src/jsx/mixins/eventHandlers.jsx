@@ -10,7 +10,7 @@ var EventHandlersMixin = {
     handleInputChange: function(event){
         var value = event.target.value;
 
-        this.setProps({value: value});
+        this.setState({value: value});
         this.filterItems(value);
         if (this.onChange){
             this.onChange(value);
@@ -34,7 +34,7 @@ var EventHandlersMixin = {
         }
     },
     handleKeys: function(event){
-        var options = this.state.filteredOptions || this.props.options;
+        var options = this.state.filteredOptions || this.state.options;
         var index = options.indexOf(this.state.selectedItem) || 0;
 
         this.openDropDownIfClosed();

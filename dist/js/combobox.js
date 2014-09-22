@@ -38,7 +38,7 @@ var EventHandlersMixin = {
     handleInputChange: function(event){
         var value = event.target.value;
 
-        this.setProps({value: value});
+        this.setState({value: value});
         this.filterItems(value);
         if (this.onChange){
             this.onChange(value);
@@ -62,7 +62,7 @@ var EventHandlersMixin = {
         }
     },
     handleKeys: function(event){
-        var options = this.state.filteredOptions || this.props.options;
+        var options = this.state.filteredOptions || this.state.options;
         var index = options.indexOf(this.state.selectedItem) || 0;
 
         this.openDropDownIfClosed();
@@ -102,7 +102,7 @@ var OptionsHelperMixin = {
     retrieveDataFromDataSource: function(inputValue){
 
         var onLoaded = function(newOptions){
-            this.setProps({
+            this.setState({
                 options: newOptions
             });
         }.bind(this);
@@ -118,7 +118,7 @@ var OptionsHelperMixin = {
             this.retrieveDataFromDataSource(query);
         } else if (query){
 
-            var filteredOptions = this.props.options.filter(function(item){
+            var filteredOptions = this.state.options.filter(function(item){
                 var value = this.props.titleField ? item[this.props.titleField] : item;
                 return value.indexOf(query) !== -1;
             }.bind(this));
@@ -213,7 +213,9 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     },
     getInitialState: function() {
         return {
-            isOpened: false
+            isOpened: false,
+            options: [],
+            value: this.props.value
         };
     },
     getDefaultProps: function() {
@@ -222,11 +224,16 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
         };
     },
     componentDidMount: function(){
+        this.updateStateIfPropsChanged(this.props);  
+
         if (this.props.source){
             this.retrieveDataFromDataSource();
         } else {
             this.filterItems(this.props.value);
         }
+    },
+    componentWillReceiveProps: function(newProps){
+        this.updateStateIfPropsChanged(newProps);        
     },
     render: function() {
 
@@ -246,7 +253,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                     React.DOM.a({className: classes, onMouseDown: this.handleArrowClick, tabIndex: "-1"}), 
 
                     React.DOM.input({type: "text", autocomplete: "off", className: "reactcombobox__input", ref: "textInput", 
-                        value: this.props.value, 
+                        value: this.state.value, 
                         disabled: this.props.disabled, 
                         onFocus: this.openDropDown, 
                         onBlur: this.closeDropDown, 
@@ -254,8 +261,9 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                         onKeyDown: this.handleKeys})
                 ), 
 
-                DropDownList({items: this.state.filteredOptions ||this.props.options, 
+                DropDownList({items: this.state.filteredOptions ||this.state.options, 
                     titleField: this.props.titleField, 
+                    query: this.state.value, 
                     selected: this.state.selectedItem, 
                     show: this.state.isOpened, 
                     itemBlock: itemBlock, 
@@ -268,7 +276,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
 
         var value = this.getValueOfItem(item, this.props.titleField);
 
-        this.setProps({value: value});
+        this.setState({value: value});
 
         if (this.onChange){
             this.onChange(value, item);
@@ -287,6 +295,18 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     },
     closeDropDown: function(){
         this.setState({isOpened: false});
+    },
+    updateStateIfPropsChanged: function(newProps){
+        var propsForState = {};
+        if (newProps.value){
+            propsForState.value = newProps.value;
+        }
+        if (newProps.options){
+            propsForState.options = newProps.options;
+        }
+        if (newProps.value || newProps.options){
+            this.setState(newProps);
+        }
     },
     closeDropdownAndBringFocusBack: function(){
         var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;

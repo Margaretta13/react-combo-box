@@ -4,7 +4,7 @@ var OptionsHelperMixin = {
     retrieveDataFromDataSource: function(inputValue){
 
         var onLoaded = function(newOptions){
-            this.setProps({
+            this.setState({
                 options: newOptions
             });
         }.bind(this);
@@ -20,7 +20,7 @@ var OptionsHelperMixin = {
             this.retrieveDataFromDataSource(query);
         } else if (query){
 
-            var filteredOptions = this.props.options.filter(function(item){
+            var filteredOptions = this.state.options.filter(function(item){
                 var value = this.props.titleField ? item[this.props.titleField] : item;
                 return value.indexOf(query) !== -1;
             }.bind(this));
