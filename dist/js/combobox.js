@@ -233,8 +233,8 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     componentDidMount: function(){
         if (this.props.source){
             this.retrieveDataFromDataSource();
-        } else {
-            this.filterItems(this.props.value);
+        } else if (this.props.defaultValue){
+            this.filterItems(this.props.defaultValue);
         }
     },
     render: function() {
