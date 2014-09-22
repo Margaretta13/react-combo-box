@@ -22,7 +22,7 @@ module.exports = function(config) {
       'src/jsx/dropDownList.jsx',
       'src/jsx/combobox.jsx',
 
-      'test/jsx/**/*Spec.jsx'
+      'test/spec/**/*Spec.jsx'
     ],
 
 
