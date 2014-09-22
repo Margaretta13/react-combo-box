@@ -16,9 +16,7 @@
 })(function() {
     "use strict";
 
-    //= include ./mixins/itemParser.jsx
-    //= include ./mixins/eventHandlers.jsx
-    //= include ./mixins/optionsHelper.jsx
+    //= include ./mixins/*.jsx
     //= include ./dropDownItem.jsx
     //= include ./dropDownList.jsx
     //= include ./combobox.jsx

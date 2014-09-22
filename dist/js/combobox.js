@@ -17,15 +17,6 @@
     "use strict";
 /** @jsx React.DOM */
 
-var ItemParserMixin = {
-    getValueOfItem: function(item, titleField){
-        var value = titleField ? item[titleField] : item;
-        return value;
-    }
-};
-
-/** @jsx React.DOM */
-
 var EventHandlersMixin = {
     keyCodes: {
         ESCAPE: 27,
@@ -93,7 +84,14 @@ var EventHandlersMixin = {
         }
     }
 };
+/** @jsx React.DOM */
 
+var ItemParserMixin = {
+    getValueOfItem: function(item, titleField){
+        var value = titleField ? item[titleField] : item;
+        return value;
+    }
+};
 /** @jsx React.DOM */
 
 var OptionsHelperMixin = {

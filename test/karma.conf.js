@@ -16,12 +16,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/react/dist/react-with-addons.js',
-      'src/jsx/mixins/itemParser.jsx',
-      'src/jsx/mixins/eventHandlers.jsx',
-      'src/jsx/mixins/optionsHelper.jsx',
+
+      'src/jsx/mixins/*.jsx',
       'src/jsx/dropDownItem.jsx',
       'src/jsx/dropDownList.jsx',
       'src/jsx/combobox.jsx',
+
       'test/jsx/**/*Spec.jsx'
     ],
 
