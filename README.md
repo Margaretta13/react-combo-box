@@ -7,7 +7,7 @@ React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementat
 
 ##Examples:
 - [examples plunker](http://plnkr.co/edit/CpOhd7?p=preview)
-- [examples plunker with Bootstrap 3](http://plnkr.co/edit/CpOhd7?p=preview)
+- [examples plunker with Bootstrap 3](http://plnkr.co/edit/PLBfy8?p=preview)
 
 ## Features
 
@@ -50,7 +50,7 @@ var combobox = React.renderComponent(
   * **onItemSelected** _{function(selectedItem)}_ - this function called on selecting item by click or key pressing 
   * **cutomItem** _{ReactJS class}_ - custom item present component, also can be passed as child of ComboBox
   * **disabled=false** _{boolean}_ - combobox may be disabled
-  * **customInputClass** _{string}_ - you can specify CSS class for input. Useful with bootstrap to specify "form-control", as in [example](http://plnkr.co/edit/CpOhd7?p=preview)
+  * **customInputClass** _{string}_ - you can specify CSS class for input. Useful with bootstrap to specify "form-control", as in [example](http://plnkr.co/edit/PLBfy8?p=preview)
 
 ## Development
 ### Prepare your environment
