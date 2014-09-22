@@ -70,7 +70,6 @@ var ComboBox = React.createClass({
 
                 <DropDownList items={this.state.filteredOptions ||this.state.options}
                     titleField={this.props.titleField}
-                    query={this.state.value}
                     selected={this.state.selectedItem}
                     show={this.state.isOpened}
                     itemBlock={itemBlock}

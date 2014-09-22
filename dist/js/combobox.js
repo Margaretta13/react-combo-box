@@ -311,8 +311,9 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     closeDropdownAndBringFocusBack: function(){
         var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;
 
+        this.refs.textInput.getDOMNode().focus();
+
         supportedIntervalMethod.call(window, function(){
-            this.refs.textInput.getDOMNode().focus();
             this.closeDropDown();
         }.bind(this));
 

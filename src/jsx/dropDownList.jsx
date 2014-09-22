@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 
 var DropDownList = React.createClass({
+    getDefaultProps: function() {
+        return {
+            items: []
+        };
+    },
     onItemSelected : function(item){
         this.props.onSelect(item);
     },
@@ -12,7 +17,6 @@ var DropDownList = React.createClass({
         return JSON.stringify(item);
     },
     render: function() {
-        this.props.items = this.props.items || [];
 
         var listItems = this.props.items.map(function (item) {
 
