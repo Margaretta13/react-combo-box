@@ -24,6 +24,8 @@
     "gulp-watch": "^1.0.5",
     "karma-chrome-launcher": "~0.1.4",
     "karma-jasmine": "~0.2.0",
-    "react": "^0.11.2"
+    "karma-react-jsx-preprocessor": "^0.1.1",
+    "react": "^0.11.2",
+    "react-tools": "^0.11.2"
   }
 }
