@@ -59,7 +59,7 @@ var ComboBox = React.createClass({
                 <div className="reactcombobox__input-wrap">
                     <a className={classes} onMouseDown={this.handleArrowClick} tabIndex="-1"></a>
 
-                    <input type="text" autocomplete="off" className="reactcombobox__input" ref="textInput"
+                    <input type="text" autoComplete="off" className="reactcombobox__input" ref="textInput"
                         value={this.state.value}
                         disabled={this.props.disabled}
                         onFocus={this.openDropDown}

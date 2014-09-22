@@ -147,6 +147,11 @@ var DropDownItem = React.createClass({displayName: 'DropDownItem',
 /** @jsx React.DOM */
 
 var DropDownList = React.createClass({displayName: 'DropDownList',
+    getDefaultProps: function() {
+        return {
+            items: []
+        };
+    },
     onItemSelected : function(item){
         this.props.onSelect(item);
     },
@@ -158,7 +163,6 @@ var DropDownList = React.createClass({displayName: 'DropDownList',
         return JSON.stringify(item);
     },
     render: function() {
-        this.props.items = this.props.items || [];
 
         var listItems = this.props.items.map(function (item) {
 
@@ -252,7 +256,7 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
                 React.DOM.div({className: "reactcombobox__input-wrap"}, 
                     React.DOM.a({className: classes, onMouseDown: this.handleArrowClick, tabIndex: "-1"}), 
 
-                    React.DOM.input({type: "text", autocomplete: "off", className: "reactcombobox__input", ref: "textInput", 
+                    React.DOM.input({type: "text", autoComplete: "off", className: "reactcombobox__input", ref: "textInput", 
                         value: this.state.value, 
                         disabled: this.props.disabled, 
                         onFocus: this.openDropDown, 
@@ -263,7 +267,6 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
 
                 DropDownList({items: this.state.filteredOptions ||this.state.options, 
                     titleField: this.props.titleField, 
-                    query: this.state.value, 
                     selected: this.state.selectedItem, 
                     show: this.state.isOpened, 
                     itemBlock: itemBlock, 
@@ -311,9 +314,8 @@ var ComboBox = React.createClass({displayName: 'ComboBox',
     closeDropdownAndBringFocusBack: function(){
         var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;
 
-        this.refs.textInput.getDOMNode().focus();
-
         supportedIntervalMethod.call(window, function(){
+            this.refs.textInput.getDOMNode().focus();
             this.closeDropDown();
         }.bind(this));
 
