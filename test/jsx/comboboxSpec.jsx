@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 describe("combobox tests", function(){
 	var testUtils = React.addons.TestUtils;
 
@@ -35,4 +37,4 @@ describe("combobox tests", function(){
         expect(dropDown.innerHTML.indexOf("test1")!==-1).toBeTruthy();
 	});
 
-})
+});
