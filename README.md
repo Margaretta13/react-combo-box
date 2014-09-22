@@ -44,7 +44,7 @@ var combobox = React.renderComponent(
   * **options=[]** _{string[]}_ or _{object[]}_  - Array of options
       If array of objects provided, you have to specify titleField property
   * **defaultValue=""** _{string}_ - that value will be showed after initialization. After initialization use setValue method to change it
-  * **source** _{function(query)} - if provided, options not needed. This function will be called on initializing and after every input change
+  * **source** _{function(query)}_ - if provided, options not needed. This function will be called on initializing and after every input change
   * **titleField** _{string}_ - should be provided, if options is array of objects
   * **onChange** _{function(value, selectedItem)}_ - this function called on every change   
   * **onItemSelected** _{function(selectedItem)}_ - this function called on selecting item by click or key pressing 
