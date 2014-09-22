@@ -7,7 +7,7 @@ describe("combobox tests", function(){
 		var testValue = "testValue";
 
 		var comboboxInstance = testUtils.renderIntoDocument(
-            ComboBox({options: [], defaultValue: testValue})
+            <ComboBox options={[]} defaultValue={testValue} />
         );
 
         var inputValue = comboboxInstance.refs.textInput.getDOMNode().value;
@@ -17,7 +17,7 @@ describe("combobox tests", function(){
 
 	it("Should open dropdown on input focus", function(){
 		var comboboxInstance = testUtils.renderIntoDocument(
-            ComboBox(null)
+            <ComboBox />
         );
 
         var inputNode = comboboxInstance.refs.textInput.getDOMNode();
@@ -29,7 +29,7 @@ describe("combobox tests", function(){
 
 	it("Should render options into dropdown", function(){
 		var comboboxInstance = testUtils.renderIntoDocument(
-            ComboBox({options: ["test1", "test2"]})
+            <ComboBox options={["test1", "test2"]} />
         );
 
         var dropDown = comboboxInstance.getDOMNode().querySelector(".reactcombobox__dropdown");
