@@ -116,12 +116,20 @@ var ComboBox = React.createClass({
         this.filterItems(newValue);
     },
     closeDropdownAndBringFocusBack: function(){
+        //We have to call focus on input and then close dropdown after minimal possible delay
         var supportedIntervalMethod = window.requestAnimationFrame ? window.requestAnimationFrame : window.setTimeout;
 
         supportedIntervalMethod.call(window, function(){
             this.refs.textInput.getDOMNode().focus();
             this.closeDropDown();
-        }.bind(this));
 
+            //And close dropdown again especially for IE
+            supportedIntervalMethod.call(window, function(){
+                if (this.state.isOpened){
+                    this.closeDropDown();
+                }
+            }.bind(this));
+
+        }.bind(this));
     }
 });
