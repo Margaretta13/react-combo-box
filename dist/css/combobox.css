@@ -12,6 +12,10 @@
   width: 100%;
   box-sizing: border-box;
 }
+.reactcombobox__input::-ms-clear {
+  width: 0;
+  height: 0;
+}
 .reactcombobox__arrow {
   position: absolute;
   top: 50%;
