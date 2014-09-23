@@ -1,4 +1,4 @@
-React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementation of [Combo box](http://en.wikipedia.org/wiki/Combo_box).
+React-combo-box is a [Combo box](http://en.wikipedia.org/wiki/Combo_box) implementation based on [ReactJS](http://facebook.github.io/react/).
 =======================================================================
 
 
@@ -14,7 +14,7 @@ React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementat
 - Configurable options source
 - Customizable drop down item
 - Full keyboard navigation support
-- AMD, CommonJS and globals module system support
+- AMD, CommonJS and loading as a global support
 - Small code base: 300 lines of JavaScript and just 6 KB for combobox.min.js
 
 ### Browser compatibility
@@ -25,7 +25,7 @@ Starting from Internet Explorer 10.
 
 
 - `bower install react-combo-box`
-- Inside your HTML add (if you not using module systems)
+- Inside your HTML add (if you are not using module systems)
   - combobox.min.js: `<script src="bower_components/react-combo-box/dist/js/combobox.min.js"></script>`
   - combobox.css: `<link rel="stylesheet" href="bower_components/react-combo-box/dist/css/combobox.css">`
 
@@ -42,12 +42,12 @@ var combobox = React.renderComponent(
 ### Component properties
 
   * **options=[]** _{string[]}_ or _{object[]}_  - Array of options
-      If array of objects provided, you have to specify titleField property
+      If array of objects is provided, you have to specify titleField property
   * **defaultValue=""** _{string}_ - that value will be showed after initialization. After initialization use setValue method to change it
-  * **source** _{function(query)}_ - if provided, options not needed. This function will be called on initializing and after every input change
+  * **source** _{function(query)}_ - if it is provided, options are not needed. This function will be called on initializing and after every input change
   * **titleField** _{string}_ - should be provided, if options is array of objects
-  * **onChange** _{function(value, selectedItem)}_ - this function called on every change   
-  * **onItemSelected** _{function(selectedItem)}_ - this function called on selecting item by click or key pressing 
+  * **onChange** _{function(value, selectedItem)}_ - calling on every input chang 
+  * **onItemSelected** _{function(selectedItem)}_ - calling on selecting item by click or key pressing 
   * **cutomItem** _{ReactJS class}_ - custom item present component, also can be passed as child of ComboBox
   * **disabled=false** _{boolean}_ - combobox may be disabled
   * **customInputClass** _{string}_ - you can specify CSS class for input. Useful with bootstrap to specify "form-control", as in [example](http://plnkr.co/edit/PLBfy8?p=preview)
