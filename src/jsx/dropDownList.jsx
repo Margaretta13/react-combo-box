@@ -16,6 +16,16 @@ var DropDownList = React.createClass({
         //use jsonned object as unique hash key of object
         return JSON.stringify(item);
     },
+    scrollToActiveElement: function(){
+        var activeItemNode = this.getDOMNode().querySelector(".dropdown-item_active");
+
+        if (activeItemNode && activeItemNode.scrollIntoView) {
+            activeItemNode.scrollIntoView(false);
+        }
+    },
+    componentDidUpdate: function() {
+        this.scrollToActiveElement();
+    },
     render: function() {
 
         var listItems = this.props.items.map(function (item) {
@@ -32,9 +42,10 @@ var DropDownList = React.createClass({
 
             var bindedClick = this.onItemSelected.bind(this, item);
 
-            return (<div className={classes} key={this.generateItemKey(item)} onMouseDown={bindedClick}>
-                        {itemElement}
-                    </div>
+            return (
+                <div className={classes} key={this.generateItemKey(item)} onMouseDown={bindedClick}>
+                    {itemElement}
+                </div>
             );
 
         }.bind(this));
