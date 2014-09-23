@@ -1,15 +1,15 @@
-React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementation of [Combo box](http://en.wikipedia.org/wiki/Combo_box) 
+React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementation of [Combo box](http://en.wikipedia.org/wiki/Combo_box).
 =======================================================================
 
 
-##Dependencies:
+###Dependencies:
 - [React with addons](http://fb.me/react-with-addons-0.11.2.js)
 
-##Examples:
+###Examples:
 - [examples plunker](http://plnkr.co/edit/CpOhd7?p=preview)
 - [examples plunker with Bootstrap 3](http://plnkr.co/edit/PLBfy8?p=preview)
 
-## Features
+### Features
 
 - Configurable options source
 - Customizable drop down item
@@ -17,11 +17,11 @@ React-combo-box is [ReactJS](http://facebook.github.io/react/) based implementat
 - AMD, CommonJS and globals module system support
 - Small code base: 300 lines of JavaScript and just 6 KB for combobox.min.js
 
-## Browser compatibility
+### Browser compatibility
 
 Starting from Internet Explorer 10.
 
-## Installation using [Bower](http://bower.io/)
+### Installation using [Bower](http://bower.io/)
 
 
 - `bower install react-combo-box`
@@ -29,7 +29,7 @@ Starting from Internet Explorer 10.
   - combobox.min.js: `<script src="bower_components/react-combo-box/dist/js/combobox.min.js"></script>`
   - combobox.css: `<link rel="stylesheet" href="bower_components/react-combo-box/dist/css/combobox.css">`
 
-## Basic usage
+### Basic usage
 ```javascript
 var stringOptions = ["one", "two", "three"];
       
@@ -39,7 +39,7 @@ var combobox = React.renderComponent(
 );
 ```
 
-## Component properties
+### Component properties
 
   * **options=[]** _{string[]}_ or _{object[]}_  - Array of options
       If array of objects provided, you have to specify titleField property
@@ -52,8 +52,8 @@ var combobox = React.renderComponent(
   * **disabled=false** _{boolean}_ - combobox may be disabled
   * **customInputClass** _{string}_ - you can specify CSS class for input. Useful with bootstrap to specify "form-control", as in [example](http://plnkr.co/edit/PLBfy8?p=preview)
 
-## Development
-### Prepare your environment
+### Development
+#### Prepare your environment
 * Install [Node.js](http://nodejs.org/) and NPM (should come with)
 * Install global dev dependencies: `npm install -g gulp`
 * Install local dev dependencies: `npm install` in repository directory
@@ -61,16 +61,18 @@ var combobox = React.renderComponent(
 * Bulid styles with: `gulp styles`
 * Run tests with: `gulp test`
 
-### Development Commands
+#### Development Commands
 
 * `gulp` to jshint, build and test
+* `gulp build` to compile sources and styles
 * `gulp sources` to build sources
 * `gulp styles` to build styles
-* `gulp lint` to jshint
+* `gulp lint` to run jshint
 * `gulp test` for one-time test with karma
 * `gulp watch` to watch src files to build
 
-## Contributing
+### Contributing
 
-- Run the tests
-- Try the [examples](https://github.com/angular-ui/ui-select/blob/master/examples)
+- Run the tests (`gulp test`)
+- Run local server in repository directory with 8765 port (`python -m SimpleHTTPServer 8765` on mac, for example)
+- Test and debug the [local debug plunker](http://plnkr.co/edit/PTi1id?p=preview)

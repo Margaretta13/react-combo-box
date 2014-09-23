@@ -9,7 +9,9 @@ var gulp = require("gulp"),
     rename = require('gulp-rename'),
     jsmin = require('gulp-jsmin');
 
-gulp.task("default", ['sources', 'lint', 'styles']);
+gulp.task("default", ['sources', 'lint', 'styles', 'test']);
+
+gulp.task("build", ['sources', 'styles']);
 
 gulp.task("lint", function(cb) {
     return gulp.src("dist/js/combobox.js")
